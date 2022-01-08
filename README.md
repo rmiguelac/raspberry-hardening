@@ -9,7 +9,7 @@ Role Variables
 * **pi_user** variable is a map with **username**, **password** and **shell** keys. This is the user that will be replacing pi user.  
   * **username** defaults to _raspiuser_  
   * **shell** defaults to _/bin/bash_  
-  * **password** should always be written
+  * **password** defautls to 'c4h4ng3_M#@', yet should always be overwritten.
 
 * **ssh_port** replaces the default 22 ssh port, defaults to _3102_.
 
