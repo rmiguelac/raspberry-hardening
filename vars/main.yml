@@ -2,7 +2,7 @@
 pi_user:
   username: raspiuser
   shell: /bin/bash
-  password: 'c4h4ng3_M#@'
+  password: 'ch4ng3_M#@'
 
 ssh_port: 3102
 
