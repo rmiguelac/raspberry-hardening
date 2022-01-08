@@ -26,7 +26,7 @@ To use the role, define it in your playbook:
 License
 -------
 
-MIT
+Apache License 2.0
 
 Author Information
 ------------------
