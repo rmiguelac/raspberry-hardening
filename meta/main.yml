@@ -1,0 +1,7 @@
+galaxy_info:
+  author: Rui Miguel Andrade Constâncio
+  description: Linux hardening for Raspian Raspberry installations
+
+  license: MIT
+
+  min_ansible_version: 2.1

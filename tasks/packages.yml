@@ -1,0 +1,16 @@
+---
+- name: Make sure required packages are installed
+  block:
+  - name: Install packages
+    ansible.builtin.package:
+      name: "{{ item }}"
+      state: present
+    lopp: "{{ service_packages }}"
+
+  - name: Enable services to start at boot
+    ansible.builtin.service:
+      name: fail2ban
+      enabled: true
+    lopp: "{{ service_packages }}"
+  
+  become: yes

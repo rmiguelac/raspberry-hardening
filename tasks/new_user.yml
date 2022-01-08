@@ -1,0 +1,29 @@
+---
+# Create a new user, disable pi (default) user
+# and make sure new user requires sudo password
+- name: Handle new user creation
+  block:
+  - name: Create new user group
+    ansible.builtin.group:
+      name: "{{ pi_user }}"
+      state: present
+  
+  - name: Create new user
+    ansible.builtin.user:
+      name: "{{ pi_user.username }}"
+      group: "{{ pi_user.username }}"
+      shell: "{{ pi_user.shell }}"
+      groups: sudo
+      append: yes
+      state: present
+    
+  - name: Ensure sudoers include sudoers.d files
+    # lineinfile?
+
+  - name: Add new user to sudoers
+    # validate with visudo
+
+  - name: Disable pi user
+    ansibe.builtin.user:
+
+  become: yes

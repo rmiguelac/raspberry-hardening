@@ -1,0 +1,6 @@
+---
+# Change default port,
+# Do not allow PasswordAuthentication
+# Add localhost to ~/.ssh/authorized
+# Do not allow Root login
+# Do not allow X11Forwarding
