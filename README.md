@@ -6,9 +6,10 @@ Some Linux Hardening for raspberry pi running Raspian.
 Role Variables
 --------------
 
-* **pi_user** variable is a map with **username** and **shell** keys. This is the user that will be replacing pi user.  
+* **pi_user** variable is a map with **username**, **password** and **shell** keys. This is the user that will be replacing pi user.  
   * **username** defaults to _raspiuser_  
   * **shell** defaults to _/bin/bash_  
+  * **password** should always be written
 
 * **ssh_port** replaces the default 22 ssh port, defaults to _3102_.
 
@@ -21,7 +22,7 @@ To use the role, define it in your playbook:
 
     - hosts: pis
       roles:
-         - { role: rmiguelac.raspberry-hardening }
+         - { role: rmiguelac.rpi-hardening }
 
 License
 -------

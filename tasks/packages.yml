@@ -5,12 +5,13 @@
     ansible.builtin.package:
       name: "{{ item }}"
       state: present
-    lopp: "{{ service_packages }}"
+    loop: "{{ service_packages }}"
 
   - name: Enable services to start at boot
     ansible.builtin.service:
       name: fail2ban
       enabled: true
-    lopp: "{{ service_packages }}"
+    loop: "{{ service_packages }}"
   
   become: yes
+  tags: packages
