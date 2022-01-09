@@ -20,7 +20,7 @@
       name: "{{ pi_user.username }}"
       group: "{{ pi_user.username }}"
       shell: "{{ pi_user.shell }}"
-      password: "{{ pi_user.password }}"
+      password: "{{ pi_user.password | password_hash('sha512', pi_user.username) }}"
       groups: sudo
       append: yes
       state: present

@@ -1,2 +1,11 @@
 ---
-# defaults file for rpi-hardening
+pi_user:
+  username: raspiuser
+  shell: /bin/bash
+  password: ''
+
+ssh_port: 3102
+
+service_packages:
+- fail2ban
+- ufw
