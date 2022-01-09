@@ -20,9 +20,17 @@ Example Playbook
 
 To use the role, define it in your playbook:
 
-    - hosts: pis
-      roles:
-         - { role: rmiguelac.rpi-hardening }
+```
+---
+- hosts: pis
+  roles:
+  - role: rmiguelac.rpi-hardening
+    vars:
+      pi_user:
+        username: mypiuser
+        shell: /bin/bash
+        password: 'oHhmy4pass!nDGIT'
+```
 
 License
 -------
