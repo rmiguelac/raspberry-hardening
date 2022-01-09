@@ -7,5 +7,5 @@ pi_user:
 ssh_port: 3102
 
 service_packages:
-- fail2ban
-- ufw
+  - fail2ban
+  - ufw

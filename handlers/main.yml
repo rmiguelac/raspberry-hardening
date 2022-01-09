@@ -3,4 +3,4 @@
   ansible.builtin.service:
     name: sshd
     state: restarted
-  become: yes
+  become: true

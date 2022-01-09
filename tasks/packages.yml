@@ -12,6 +12,6 @@
       name: fail2ban
       enabled: true
     loop: "{{ service_packages }}"
-  
-  become: yes
+
+  become: true
   tags: packages

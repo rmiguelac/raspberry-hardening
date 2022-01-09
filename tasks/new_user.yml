@@ -4,65 +4,65 @@
 - name: Validate password was given
   fail:
     msg: "pi_user.password was not set"
-  when: pi_user.password is undefined or pi_user.password|length == 0 
+  when: pi_user.password is undefined or pi_user.password|length == 0
   delegate_to: localhost
   run_once: true
 
 - name: Handle new user creation
   block:
-  - name: Create new user group
-    ansible.builtin.group:
-      name: "{{ pi_user.username }}"
-      state: present
-  
-  - name: Create new user
-    ansible.builtin.user:
-      name: "{{ pi_user.username }}"
-      group: "{{ pi_user.username }}"
-      shell: "{{ pi_user.shell }}"
-      password: "{{ pi_user.password | password_hash('sha512', pi_user.username) }}"
-      groups: sudo
-      append: yes
-      state: present
-    
-  - name: Ensure /etc/sudoers.d exist
-    ansible.builtin.file:
-      path: /etc/sudoers.d
-      state: directory
-      mode: '0755'
+    - name: Create new user group
+      ansible.builtin.group:
+        name: "{{ pi_user.username }}"
+        state: present
 
-  - name: Ensure sudoers include sudoers.d files
-    ansible.builtin.lineinfile:
-      path: /etc/sudoers
-      state: present
-      regexp: '^@includedir'
-      line: '@includedir /etc/sudoers.d'
-      validate: /usr/sbin/visudo -cf %s
+    - name: Create new user
+      ansible.builtin.user:
+        name: "{{ pi_user.username }}"
+        group: "{{ pi_user.username }}"
+        shell: "{{ pi_user.shell }}"
+        password: "{{ pi_user.password | password_hash('sha512', pi_user.username) }}"
+        groups: sudo
+        append: true
+        state: present
 
-  - name: Add new user to sudoers
-    ansible.builtin.template:
-      src: user.j2
-      dest: /etc/sudoers.d/{{ pi_user.username }}
-      mode: '0440'
-  
-  - name: Allow no-password ssh from localhost to new user
-    ansible.posix.authorized_key:
-      user: "{{ pi_user.username }}"
-      state: present
-      key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-    register: authkey
+    - name: Ensure /etc/sudoers.d exist
+      ansible.builtin.file:
+        path: /etc/sudoers.d
+        state: directory
+        mode: '0755'
 
-  - name: Disable pi user
-    ansible.builtin.user:
-      user: pi
-      state: present
-      expires: 1329696000
-    when: authkey is succeeded
+    - name: Ensure sudoers include sudoers.d files
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^@includedir'
+        line: '@includedir /etc/sudoers.d'
+        validate: /usr/sbin/visudo -cf %s
 
-  - name: Remove pi user from sudoers
-    ansible.builtin.file:
-      path: /etc/sudoers.d/010_pi-nopasswd
-      state: absent
+    - name: Add new user to sudoers
+      ansible.builtin.template:
+        src: user.j2
+        dest: /etc/sudoers.d/{{ pi_user.username }}
+        mode: '0440'
 
-  become: yes
+    - name: Allow no-password ssh from localhost to new user
+      ansible.posix.authorized_key:
+        user: "{{ pi_user.username }}"
+        state: present
+        key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+      register: authkey
+
+    - name: Disable pi user
+      ansible.builtin.user:
+        user: pi
+        state: present
+        expires: 1329696000
+      when: authkey is succeeded
+
+    - name: Remove pi user from sudoers
+      ansible.builtin.file:
+        path: /etc/sudoers.d/010_pi-nopasswd
+        state: absent
+
+  become: true
   tags: user
