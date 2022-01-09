@@ -1,8 +1,12 @@
 ---
 galaxy_info:
+  role_name: rpihardening
+  namespace: rmiguelac
   author: Rui Miguel Andrade Constâncio
   description: Linux hardening for Raspian Raspberry installations
   license: MIT
   platforms:
-    - Raspian
+    - name: Raspian
+      versions:
+        - bullseye
   min_ansible_version: 2.1
