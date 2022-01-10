@@ -1,10 +1,25 @@
 ---
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 dependency:
   name: galaxy
 driver:
-  name: delegated
+  name: vagrant
+  provider:
+    name: virtualbox
 platforms:
   - name: instance
+    box: bento/ubuntu-20.04
+    memory: 4096
+    cpus: 2
+    interfaces:
+      - network_name: private_network
+        ip: 192.168.10.10
+    config_options:
+      ssh.keep_alive: true
+      ssh.remote_user: "'vagrant'"
 provisioner:
   name: ansible
 verifier:

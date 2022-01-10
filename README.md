@@ -57,6 +57,12 @@ ansible-lint .
 
 Lastly, [Molecule](https://molecule.readthedocs.io/en/latest/)
 
+For molecule to use vagrant, we must install molecule-vagrant, like:
+
+```
+pip3 install molecule-vagrant
+```
+
 **License**
 -------
 
