@@ -1,17 +1,25 @@
 ---
 - name: Make sure required packages are installed
   block:
+  - name: Update and upgrade packages
+    package:
+      upgrade: true
+      update_cache: true
+      cache_valid_time: 86400
+
   - name: Install packages
     ansible.builtin.package:
       name: "{{ item }}"
       state: present
-    loop: "{{ service_packages }}"
+    loop:
+      - "{{ services }}"
+      - "{{ packages }}"
 
   - name: Enable services to start at boot
     ansible.builtin.service:
       name: fail2ban
       enabled: true
-    loop: "{{ service_packages }}"
+    loop: "{{ services }}"
 
   become: true
   tags: packages

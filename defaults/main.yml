@@ -6,6 +6,11 @@ pi_user:
 
 ssh_port: 3102
 
-service_packages:
+services:
   - fail2ban
   - ufw
+
+packages:
+  - unattended-upgrades
+  - apt-listchanges
+  - apticron
