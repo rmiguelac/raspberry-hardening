@@ -6,7 +6,6 @@ Some Linux Hardening for raspberry pi running Raspian.
 **Role Variables**
 --------------
 
----
 | variable                 | context                                                                     | default                                                         |
 | ------------------------ | --------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | **pi_user**.**username** | This is the user that will be replacing pi user.                            | defaults to _raspiuser_                                         |
@@ -15,7 +14,6 @@ Some Linux Hardening for raspberry pi running Raspian.
 | **ssh_port**             | Replaces the default 22 ssh port                                            | defaults to _3102_.                                             |
 | **services**             | List of packages that will be installed and should start at boot (services) | Defaults to _fail2ban_ and _ufw_                                |
 | **packages**             | List of packages that will be installed                                     | Defaults to _unattended-upgrades, apt-listchanges and apticron_ |
----
 
 **Example Playbook**
 ----------------
