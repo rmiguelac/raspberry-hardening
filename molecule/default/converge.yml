@@ -4,4 +4,4 @@
   tasks:
     - name: "Include rpihardening"
       include_role:
-        name: "rpihardening"
+        name: "rmiguelac.rpihardening"

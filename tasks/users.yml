@@ -38,7 +38,7 @@
         state: present
         regexp: '^@includedir'
         line: '@includedir /etc/sudoers.d'
-        validate: /usr/sbin/visudo -cf %s
+        validate: visudo -cf %s
 
     - name: Add new user to sudoers
       ansible.builtin.template:
