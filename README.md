@@ -6,14 +6,16 @@ Some Linux Hardening for raspberry pi running Raspian.
 **Role Variables**
 --------------
 
-* **pi_user** variable is a map with **username**, **password** and **shell** keys. This is the user that will be replacing pi user.  
-  * **username** defaults to _raspiuser_  
-  * **shell** defaults to _/bin/bash_  
-  * **password** defautls to '', yet **_SHOULD ALWAYS_** be overwritten, otherwise access to root account will be lost.
-
-* **ssh_port** replaces the default 22 ssh port, defaults to _3102_.
-
-* **service_packages** is a list holding any packages that need to be installed and start as a service at boot. Defaults to _fail2ban_ and _ufw_
+---
+| variable                 | context                                                                     | default                                                         |
+| ------------------------ | --------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **pi_user**.**username** | This is the user that will be replacing pi user.                            | defaults to _raspiuser_                                         |
+| **pi_user**.**shell**    | New user shell                                                              | defaults to _/bin/bash_                                         |
+| **pi_user**.**password** | New user password                                                           | defautls to _'myeasyP@ss123'_                                   |
+| **ssh_port**             | Replaces the default 22 ssh port                                            | defaults to _3102_.                                             |
+| **services**             | List of packages that will be installed and should start at boot (services) | Defaults to _fail2ban_ and _ufw_                                |
+| **packages**             | List of packages that will be installed                                     | Defaults to _unattended-upgrades, apt-listchanges and apticron_ |
+---
 
 **Example Playbook**
 ----------------
