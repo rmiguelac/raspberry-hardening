@@ -2,6 +2,9 @@ rpihardening
 =========
 
 Some Linux Hardening for raspberry pi running Raspian.
+Default user is disabled, new one is created and password logins are disallowed.
+SSH changes in default port, login passwords and more.
+Firewall setup and default packages update.
 
 **Role Variables**
 --------------
