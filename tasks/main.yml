@@ -1,6 +1,6 @@
 ---
 - name: Handle users
-  import_tasks: new_user.yml
+  import_tasks: users.yml
   tags: user
 
 - name: Handle ssh

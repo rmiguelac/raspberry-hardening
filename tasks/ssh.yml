@@ -1,6 +1,47 @@
 ---
+# Add localhost to ~/.ssh/authorized
 # Change default port,
 # Do not allow PasswordAuthentication
-# Add localhost to ~/.ssh/authorized
 # Do not allow Root login
 # Do not allow X11Forwarding
+- name: Allow no-password ssh from localhost to new user
+  ansible.posix.authorized_key:
+    user: "{{ pi_user.username }}"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+  register: authkey
+
+# We split disabling login password from other ssh
+# config due to the possibility of previous step
+# failing and we losing connection to the pi(s)
+- name: Disable password login
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} {{ item.value }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop:
+    - key: PasswordAuthentication
+      value: "no"
+  when: authkey is succeeded
+  notify: Restart SSH Service
+
+- name: sshd_config
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} {{ item.value }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop:
+    - key: PermitRootLogin
+      value: "no"
+    - key: PubkeyAuthentication
+      value: "yes"
+    - key: X11Forwarding
+      value: "no"
+    - key: Port
+      value: "{{ ssh_port }}"
+  when: authkey is succeeded
+  notify: Restart SSH Service
