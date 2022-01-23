@@ -7,10 +7,10 @@
   import_tasks: ssh.yml
   tags: ssh
 
-- name: Handle firewall
-  import_tasks: firewall.yml
-  tags: firewall
-
 - name: Install Packages
   import_tasks: packages.yml
   tags: packages
+
+- name: Handle firewall
+  import_tasks: firewall.yml
+  tags: firewall
