@@ -28,7 +28,7 @@
 
     - name: Ensure /etc/sudoers.d exist
       ansible.builtin.file:
-        path: /etc/sudoers.d
+        path: '/etc/sudoers.d'
         state: directory
         mode: '0755'
 
@@ -36,9 +36,9 @@
       ansible.builtin.lineinfile:
         path: /etc/sudoers
         state: present
-        regexp: '^@includedir'
-        line: '@includedir /etc/sudoers.d'
-        validate: visudo -cf %s
+        regexp: "^#includedir"
+        line: '#includedir /etc/sudoers.d'
+        validate: '/usr/sbin/visudo -cf %s'
 
     - name: Add new user to sudoers
       ansible.builtin.template:
