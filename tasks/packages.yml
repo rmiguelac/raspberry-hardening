@@ -21,5 +21,15 @@
       enabled: true
     loop: "{{ services }}"
 
+  - name: Configure fail2ban
+    ansible.builtin.template:
+      src: "{{ item }}.local.j2"
+      dest: "/etc/fail2ban/{{ item }}.local"
+      mode: 0644
+    when: fail2ban in services
+    loop:
+      - fail2ban
+      - jail
+
   become: true
   tags: packages

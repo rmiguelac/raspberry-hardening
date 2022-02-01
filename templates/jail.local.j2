@@ -1,0 +1,24 @@
+# Magic goes here at .local which will override .conf
+
+[DEFAULT]
+ignorecommand =
+bantime = 45m
+findtime = 15m
+maxretry = 3
+backend = auto
+usedns = warn
+logencoding = auto
+enabled = false
+mode = normal
+filter = %(name)s[mode=%(mode)s]
+destemail = root@localhost
+sender = root@
+mta = sendmail
+protocol = tcp
+chain =
+port = 0:65535
+fail2ban_agent = Fail2Ban/%(fail2ban_version)s
+banaction = iptables-multiport
+banaction_allports = iptables-allports
+action_abuseipdb = abuseipdb
+action = %(action_)s

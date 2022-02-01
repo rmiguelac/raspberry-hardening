@@ -1,0 +1,23 @@
+# This is a .local file because it overrides .conf
+
+[DEFAULT]
+
+loglevel = INFO
+logtarget = /var/log/fail2ban.log
+syslogsocket = auto
+socket = /var/run/fail2ban/fail2ban.sock
+pidfile = /var/run/fail2ban/fail2ban.pid
+dbfile = /var/lib/fail2ban/fail2ban.sqlite3
+dbpurgeage = 1d
+dbmaxmatches = 10
+
+[Definition]
+
+[Thread]
+
+[ssh]
+enabled  = true
+port     = {{ ssh_port }}
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 3
