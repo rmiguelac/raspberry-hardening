@@ -26,7 +26,7 @@
       src: "{{ item }}.local.j2"
       dest: "/etc/fail2ban/{{ item }}.local"
       mode: 0644
-    when: fail2ban in services
+    when: "'fail2ban' in services"
     loop:
       - fail2ban
       - jail
